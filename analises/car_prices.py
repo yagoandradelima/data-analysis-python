@@ -2,9 +2,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 
-dataset = pd.read_csv('C:/Users/yandrade/OneDrive - Sá Cavalcante/Documentos/GitHub/data-analysis-python/databases/car_price.csv')
-print(dataset)
+plt.style.use('_mpl-gallery')
 
-size = np.random ....
-
-plt.scatter(dataset['wheelbase'], dataset['carlenght'], s=)
+#Realizando uma visualização analítica entre o comprimento e os eixos dos carros na lista
+dataset = pd.read_csv('databases/car_price.csv')
+plt.scatter(dataset['wheelbase'], dataset['carlength'], s=25)
+plt.xlabel('Distância entre eixos')
+plt.ylabel('Comprimento')
+plt.show()
