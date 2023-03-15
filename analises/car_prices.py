@@ -14,9 +14,14 @@ plt.ylabel('Comprimento')
 plt.grid()
 plt.show()
 
-
-
-plt.pie(dataset['fueltype'].value_counts(), radius=2)
-plt
+#Análise da % da quantidade de tipos de combustíveis
+plt.pie(dataset['fueltype'].value_counts(), #Dados que serão utilizados
+        radius=1, #Setando o raio do gráfico de pizza
+        wedgeprops={"linewidth": 1, "edgecolor": "white"}, #Propriedade das linhas divisórias de cada pedaço
+        labels=("Gasolina", "Diesel"), #Legenda (segue o padrão de x, y)
+        shadow=True, #Criação de sombra no gráfico
+        explode=(0, 0.5), #Deslocamento do pedaço da pizza
+        autopct='%.2f%%') #Porcentagem automatica. Lê os dados e transforma em %. Ler função format em caso de dúvidas.
+plt.title('Tipos de combustíveis por carro')
 plt.show()
 
