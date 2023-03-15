@@ -25,3 +25,31 @@ plt.pie(dataset['fueltype'].value_counts(), #Dados que serão utilizados
 plt.title('Tipos de combustíveis por carro')
 plt.show()
 
+#Criando uma função de tradução
+def tradutor(a):
+        if a == 'two':
+            return 'Dois'
+        elif a == 'four':
+            return 'Quatro'
+        elif a == 'six':
+            return 'Seis'
+        elif a == 'five':
+            return 'Cinco'
+        elif a == 'three':
+            return 'Três'
+        elif a == 'twelve':
+            return 'Doze'
+        else:
+            return 'Oito'
+
+#Aplicando a função de tradução diretamente no dataset
+dataset['cylindernumber'] = dataset['cylindernumber'].apply(tradutor)
+
+#Aplicando o código de barras
+plt.bar(dataset['cylindernumber'].unique(), 
+        dataset['cylindernumber'].value_counts(), 
+        width=1, 
+        edgecolor='black', 
+        linewidth=1)
+plt.show()
+#plt.bar()
