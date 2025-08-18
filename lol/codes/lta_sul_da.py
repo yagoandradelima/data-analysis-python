@@ -18,7 +18,9 @@ df
 
 # %%
 
-for i in range(0, len(df["gamelength"])):
-    print(df["gamelength"].iloc[i])
+def timedelta(coluna):
+    for i in df[coluna]:
 
+
+# %%
 
