@@ -17,6 +17,8 @@ def player_stats(player:str, data:pd.DataFrame):
     # criando as listas de colunas para acesso futuro
     colunas_desempenho_jg = ["kda","monsterkills","xpdiffat10","xpdiffat15","xpdiffat20","xpdiffat25","golddiffat10","golddiffat15","golddiffat20","golddiffat25","wardsplaced","wpm","wardskilled","wcpm","controlwardsbought","visionscore","vspm"]
 
+    top_picks = [x for x in player_data["champion"].value_counts().nlargest(5).index]
+
     if player_data["position"].unique() == "jng":
         
         qtd_partidas = player_data.shape[0]
@@ -24,18 +26,19 @@ def player_stats(player:str, data:pd.DataFrame):
         for column in player_data.columns:
             if column in ['playername', 'teamname', 'league']:
                 print(f"{column}: {player_data[column].unique()}")
-                
+            # Para usar a lista completa, preciso colocar ( ) ao redor da lista, senão ela ignora a iteração
+            elif column in (colunas_desempenho_jg):
+                print(f"{column}_mean: {round(player_data[column].mean(),2)}")
+            else:
+                pass
+
         print(
             f"""
-            Pool: {player_data["champion"].unique().shape[0]}\n
-            Top picks: {[x for x in player_data["champion"].value_counts().nlargest(5).index]}\n
-            Partidas jogadas com os Top Picks: {player_data["champion"].value_counts().nlargest(5).values}\n
+            Pool: {player_data["champion"].unique().shape[0]}
+            Top picks: {[x for x in player_data["champion"].value_counts().nlargest(5).index]}
+            Partidas jogadas com os Top Picks: {player_data["champion"].value_counts().nlargest(5).values}
             """
         )
-
-        for column in player_data.columns:
-            if column in [colunas_desempenho_jg]:
-                print(f"{column}: {round(player_data[column].mean()),2}")
 
         player_data_top_champs = player_data[player_data["champion"].isin(top_picks)]
     
@@ -46,7 +49,7 @@ def player_stats(player:str, data:pd.DataFrame):
 
             print(
                 f"""
-                    Campeão: {campeao}\n
+                    Campeão: {campeao}
                     WinRate: {win_rate}%
                 """
                 )
@@ -89,3 +92,8 @@ def player_stats(player:str, data:pd.DataFrame):
             Média Gold Diff 25m: {gold_diff_25}\n
             """
         )
+    
+if __name__ == "__main__":
+    import pandas as pd
+    data = pd.read_csv("C:/Users/yandrade/Documents/GitHub/data-analysis-python/lol/data/full_data/2026_LoL_esports_match_data_from_OraclesElixir.csv")
+    print("Teste:", player_stats("tatu", data))
