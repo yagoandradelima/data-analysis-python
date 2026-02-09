@@ -1,6 +1,7 @@
+from numpy import mean
 import pandas as pd
 
-def player_stats(player:str, data:pd.DataFrame):
+def player_stats(player:str, data:pd.DataFrame, agregador='mean'):
 
     # Ajustando os dados para que, em qualquer caso de digitação tudo seja padronizado para que aceite qualquer forma do nome do player
     player = player.lower().strip()
@@ -30,7 +31,7 @@ def player_stats(player:str, data:pd.DataFrame):
                 print(f"{column}: {player_data[column].unique()}\n")
             # Para usar a lista completa, preciso colocar ( ) ao redor da lista, senão ela ignora a iteração
             elif column in (colunas_desempenho_jg):
-                print(f"{column}_mean: {round(player_data[column].mean(),2)}\n")
+                print(f"{column}_{agregador}: {round(player_data[column].agg(agregador),2)}\n")
             else:
                 pass
 
@@ -65,7 +66,7 @@ def player_stats(player:str, data:pd.DataFrame):
                 print(f"{column}: {player_data[column].unique()}\n")
             # Para usar o nome da lista completa, preciso colocar ( ) ao redor da lista, senão ela ignora a iteração
             elif column in (colunas_desempenho):
-                print(f"{column}_mean: {round(player_data[column].mean(),2)}\n")
+                print(f"{column}_{agregador}: {round(player_data[column].agg(agregador),2)}\n")
             else:
                 pass
 
