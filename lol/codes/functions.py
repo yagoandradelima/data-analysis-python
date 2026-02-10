@@ -6,10 +6,10 @@ def player_stats(player:str, data:pd.DataFrame, agregador='mean'):
     # Ajustando os dados para que, em qualquer caso de digitação tudo seja padronizado para que aceite qualquer forma do nome do player
     player = player.lower().strip()
     
-    data["playername"] = data["playername"].str.lower()
+    data["playername"] = data.loc["playername"].str.lower()
 
     # Aqui eu tenho todos os dados completos de um único jogador
-    player_data = data[data["playername"] == player].copy()
+    player_data = data[data["playername"] == player]
 
     # Impedindo casos de divisão por 0 (existem jogos onde o jogar morre 0 vezes e nesses casos o 0 equivale a 1 na conta do KDA)
     adjusted_deaths = player_data["deaths"].clip(lower=1)
@@ -23,8 +23,6 @@ def player_stats(player:str, data:pd.DataFrame, agregador='mean'):
     top_picks = [x for x in player_data["champion"].value_counts().nlargest(5).index]
 
     if player_data["position"].unique() == "jng":
-        
-        print(f"Qtd. Partidas: {player_data.shape[0]}")
     
         for column in player_data.columns:
             if column in ['playername', 'teamname', 'league', 'position']:
@@ -42,6 +40,9 @@ def player_stats(player:str, data:pd.DataFrame, agregador='mean'):
             Partidas jogadas com os Top Picks: {player_data["champion"].value_counts().nlargest(5).values}
             """
         )
+
+        print(f"Qtd. Partidas: {player_data.shape[0]}\n")
+
 
         player_data_top_champs = player_data[player_data["champion"].isin(top_picks)]
     
