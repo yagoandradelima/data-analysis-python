@@ -6,10 +6,10 @@ def player_stats(player:str, data:pd.DataFrame, agregador='mean'):
     # Ajustando os dados para que, em qualquer caso de digitação tudo seja padronizado para que aceite qualquer forma do nome do player
     player = player.lower().strip()
     
-    data["playername"] = data.loc["playername"].str.lower()
+    data["playername"] = data["playername"].str.lower()
 
     # Aqui eu tenho todos os dados completos de um único jogador
-    player_data = data[data["playername"] == player]
+    player_data = data.loc[data["playername"] == player]
 
     # Impedindo casos de divisão por 0 (existem jogos onde o jogar morre 0 vezes e nesses casos o 0 equivale a 1 na conta do KDA)
     adjusted_deaths = player_data["deaths"].clip(lower=1)
